@@ -1,93 +1,136 @@
-import { Box, Button, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
-import CustomizedInput from '../components/shared/CustomizedInput';
+// src/pages/SignUp.tsx
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import CustomizedInput from "../components/shared/CustomizedInput";
 import { IoIosLogIn } from "react-icons/io";
-import {toast} from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { toast } from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 const SignUp = () => {
   const auth = useAuth();
   const navigate = useNavigate();
-  const handleSubmit = async(e:React.FormEvent<HTMLFormElement>) =>{
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    try{
-      toast.loading("Signing up!", {id:"signup"});
-      await auth?.signup(name, email,password);
-      toast.success("Signed up successfully!", {id:"signup"});
-    }catch(error){
+    try {
+      toast.loading("Signing up!", { id: "signup" });
+      await auth?.signup(name, email, password);
+      toast.success("Signed up successfully!", { id: "signup" });
+    } catch (error) {
       console.log(error);
-      toast.error("Sign up failed!",{id:"signup"});
+      toast.error("Sign up failed!", { id: "signup" });
     }
-  }
-  useEffect(()=>{
-    if(auth?.user){
+  };
+
+  useEffect(() => {
+    if (auth?.user) {
       navigate("/chat");
     }
-  },[auth]);
-  return(
-    <Box width={'100%'} height={'100%'} display={"flex"} flex={1}>
-      <Box 
-      padding={8} 
-      mt={8} 
-      display={{md:"flex", sm:"none", xs:"none"}}>
-        <img src='ventbot.png' alt='Robot' style={{width:"350px", height:"350px", borderRadius:"8px"}}/>
-      </Box>
-      <Box 
-      display={'flex'} 
-      flex={{xs:1, md:0.5}} 
-      justifyContent={"center"} 
-      alignItems={"center"} 
-      padding={2}
-      ml={'auto'}
-      mt={16}>
-        <form 
-        onSubmit={(handleSubmit)}
-        style={{
-          margin:"auto", 
-          padding:"30px", 
-          boxShadow:"10px 10px 20px #000",
-          borderRadius:"10px",
-          border:"none",
+  }, [auth]);
+
+  return (
+    <Flex minH="100vh" align="center" justify="center" p={4}>
+      <Flex
+        w="full"
+        maxW="1000px"
+        h={{ base: "auto", md: "650px" }}
+        borderRadius="3xl"
+        overflow="hidden"
+        boxShadow="lg"
+        direction={{ base: "column", md: "row" }}
+      >
+        {/* Left Panel: GIF */}
+        <Flex
+          flex={1}
+          color="white"
+          direction="column"
+          justify="space-between"
+          p={10}
+          bgImage="ventbotgif.gif"
+          bgSize="cover"
+          bgPosition="center"
+          display={{ base: "none", md: "flex" }}
+        />
+
+        {/* Right Panel: Glassmorphic Sign Up */}
+        <Flex
+          flex={1}
+          p={10}
+          direction="column"
+          justify="center"
+          align="center"
+          
+          sx={{
+            backdropFilter: "blur(14px) saturate(160%)",
+            WebkitBackdropFilter: "blur(14px) saturate(160%)",
+            borderLeft: { base: "none", md: "1px solid rgba(255,255,255,0.12)" },
           }}
+          borderRadius="2xl"
         >
-          <Box sx={{
-            display:"flex", 
-            flexDirection:"column",
-            justifyContent:"center",
-            }}>
-              <Typography 
-              variant='h4' 
-              textAlign={"center"} 
-              padding={2} 
-              fontWeight={600}
-              > 
-              Signup
-              </Typography>
-              <CustomizedInput type="text" name='name' label='Name'/>
-              <CustomizedInput type="email" name='email' label='Email'/>
-              <CustomizedInput type='password' name='password' label='Password'/>
-              <Button type='submit' 
-              sx={{
-                px:2, 
-                py:1, 
-                mt:2, 
-                width:"400px", 
-                borderRadius:2, 
-                bgcolor:'plum', 
-                ":hover":{
-                  bgcolor:"white",
-                  color:"black",
-                }
-              }}
-              endIcon={<IoIosLogIn />}>Signup</Button>
-            </Box>
-        </form>
-      </Box>
-    </Box>
-  )
+          <Box as="form" onSubmit={handleSubmit} w="full" maxW="350px">
+            <VStack spacing={6} align="stretch">
+              <VStack spacing={1} align="flex-start" w="full">
+                <Heading color="white">Sign Up</Heading>
+                <Text color="gray.300">
+                  Enter your credentials to create your account
+                </Text>
+              </VStack>
+
+              <FormControl>
+                <FormLabel color="white">Name</FormLabel>
+                <CustomizedInput type="text" name="name" label="Name" />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel color="white">Email</FormLabel>
+                <CustomizedInput type="email" name="email" label="Email" />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel color="white">Password</FormLabel>
+                <CustomizedInput type="password" name="password" label="Password" />
+              </FormControl>
+
+              {/* ✅ EDITED BUTTON BELOW */}
+              <Button
+                type="submit"
+                bg="#4A90E2"
+                color="white"
+                size="lg"
+                fontSize="md"
+                fontWeight="bold"
+                rightIcon={<IoIosLogIn />}
+                w="full"
+                borderRadius="lg"
+                _hover={{
+                  bg: '#357ABD',
+                  transform: 'scale(1.02)',
+                  boxShadow: '0 0 15px rgba(74, 144, 226, 0.7)',
+                }}
+                transition="all 0.2s ease-in-out"
+              >
+                Sign Up
+              </Button>
+            </VStack>
+          </Box>
+        </Flex>
+      </Flex>
+    </Flex>
+  );
 };
+
 export default SignUp;
