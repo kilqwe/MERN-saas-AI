@@ -39,9 +39,9 @@ const Header = () => {
               to="/"
               text="Logout"
               onClick={auth.logout}
+              variant="ghost"
               size="md"
               fontSize="md"
-              bgGradient="linear-gradient(90deg, #c64453ff, #f04262ff, #ed80aaff, #c64453ff)"
             />
           </HStack>
         ) : (

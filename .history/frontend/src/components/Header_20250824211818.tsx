@@ -39,14 +39,14 @@ const Header = () => {
               to="/"
               text="Logout"
               onClick={auth.logout}
+              variant="ghost"
               size="md"
               fontSize="md"
-              bgGradient="linear-gradient(90deg, #c64453ff, #f04262ff, #ed80aaff, #c64453ff)"
             />
           </HStack>
         ) : (
           <HStack spacing={2}>
-            <NavLinkButton to="/login" text="Login" size="md" fontSize="md" />
+            <NavLinkButton to="/login" text="Login" variant="ghost" size="md" fontSize="md" />
             <NavLinkButton to="/signup" text="Signup" size="md" fontSize="md" bgGradient = "linear-gradient(90deg, #EC4899, #4F46E5, #A855F7, #EC4899)" />
           </HStack>
         )}
