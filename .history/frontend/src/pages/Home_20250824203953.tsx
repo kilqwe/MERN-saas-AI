@@ -22,7 +22,7 @@ const Home = () => {
     <>
       <VStack w="100%" align="center" mx="auto" mt={3}>
         {/* ✅ Push typing text lower */}
-        <Box mt={50}>
+        <Box mt={35}>
           <TyperAnimation />
         </Box>
 
