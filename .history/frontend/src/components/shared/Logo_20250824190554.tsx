@@ -1,37 +1,20 @@
 import React from 'react';
-import {
-  HStack,
-  Link,
-  Image,
-  Text,
-  usePrefersReducedMotion,
-} from '@chakra-ui/react';
+import { HStack, Link, Image, Text, usePrefersReducedMotion } from '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
 import { Link as RouterLink } from 'react-router-dom';
 
-// Animation for rotation
+// 1. Define the rotation animation using keyframes
 const spin = keyframes`
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 `;
 
-// ✅ Animation for a pulsing glow effect
-const glow = keyframes`
-  0% { box-shadow: 0 0 5px #64f3d5; }
-  50% { box-shadow: 0 0 20px #88f7e2; }
-  100% { box-shadow: 0 0 5px #64f3d5; }
-`;
-
 const Logo = () => {
+  // 2. Check for user's motion preference for accessibility
   const prefersReducedMotion = usePrefersReducedMotion();
-
-  // ✅ Combine both animations, separated by a comma
-  const spinAnimation = `${spin} infinite 10s linear`;
-  const glowAnimation = `${glow} infinite 4s ease-in-out`;
-
   const animation = prefersReducedMotion
     ? undefined
-    : `${spinAnimation}, ${glowAnimation}`;
+    : `${spin} infinite 20s linear`;
 
   return (
     <HStack spacing={3} mr="auto">
@@ -41,18 +24,18 @@ const Logo = () => {
           alt="openai logo"
           boxSize="30px"
           className="image-inverted"
-          borderRadius="full"
-          animation={animation} // Apply the combined animations
+          animation={animation} // 3. Apply the animation here
         />
       </Link>
       <Text
         display={{ base: 'none', md: 'block' }}
         mr="auto"
-        fontWeight="normal"
+        fontWeight="normal" // Set the base font weight
         textShadow="2px 2px 20px #000"
         fontSize="20px"
         color="white"
       >
+        {/* 4. Style "VENT" and "BOT" differently */}
         <Text as="span" fontWeight="bold">VENT</Text>BOT
       </Text>
     </HStack>

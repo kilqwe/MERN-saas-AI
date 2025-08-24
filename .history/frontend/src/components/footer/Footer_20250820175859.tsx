@@ -16,6 +16,8 @@ const Footer = () => {
         textShadow: "0px 0px 10px rgba(100, 243, 213, 0.6)",
       }}
     >
+      Built with inspiration from the amazing tutorial by<span><Link className="nav-link" style={{color:"white"}} to={"https://www.youtube.com/watch?v=wrHTcjSZQ1Y&list=WL&index=2&t=812s"}>Indian Coders</Link></span>
+      and freeCodeCamp
     </footer>
   );
 };
