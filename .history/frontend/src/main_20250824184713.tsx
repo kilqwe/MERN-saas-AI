@@ -20,11 +20,11 @@ const theme = extendTheme({
     primary: '#1976d2',
     secondary: '#dc004e',
   },
+  // 1. Add global styles for the background
   styles: {
     global: {
       'body': {
-        // ✅ FIX 1: Corrected the URL syntax (removed the extra quote)
-        backgroundImage: 'url("/bg2.jpg")',
+        backgroundImage: 'url(/bg2.jpg")', 
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -38,8 +38,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
       <BrowserRouter>
-        {/* ✅ FIX 2: Pass the custom theme to the provider */}
-        <ChakraProvider theme={theme}>
+        <ChakraProvider>
           <Toaster position='bottom-right' />
           <App />
         </ChakraProvider>
