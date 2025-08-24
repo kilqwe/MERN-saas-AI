@@ -10,7 +10,7 @@ import React from 'react';
 
 // Import Chakra UI components
 import { ChakraProvider } from '@chakra-ui/react';
-import { extendTheme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/theme';
 
 // Production API base URL
 //axios.defaults.baseURL = "https://ventbot-saas-ai.onrender.com/api/v1";
@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         {/* 2. Replace ThemeProvider with ChakraProvider */}
         <ChakraProvider theme={theme}>
-          <Toaster position='bottom-right' />
+          <Toaster position='top-right' />
           <App />
         </ChakraProvider>
       </BrowserRouter>

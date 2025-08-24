@@ -31,8 +31,8 @@ createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       <BrowserRouter>
         {/* 2. Replace ThemeProvider with ChakraProvider */}
-        <ChakraProvider theme={theme}>
-          <Toaster position='bottom-right' />
+        <ChakraProvider>
+          <Toaster position='top-right' />
           <App />
         </ChakraProvider>
       </BrowserRouter>
