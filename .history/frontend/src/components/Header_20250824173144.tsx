@@ -1,5 +1,5 @@
 // src/components/Header.tsx
-import { Box, Flex, Spacer, HStack } from "@chakra-ui/react"; // Added HStack
+import { Box, Flex, Spacer } from "@chakra-ui/react";
 import React from "react";
 import { useAuth } from "../context/AuthContext";
 import NavLinkButton from "./shared/NavigationLink";
@@ -14,14 +14,14 @@ const Header = () => {
       position="sticky"
       top="0"
       zIndex="10"
-      p={{ base: 2, md: 3 }} // Reduced padding
+      p={{ base: 5, md: 6 }}
     >
       <Flex
         as="nav"
         maxW="container.xl"
         mx="auto"
-        px={{ base: 4, md: 6 }} // Reduced padding
-        py={3} // Reduced padding
+        px={10}
+        py={6}
         justifyContent="space-between"
         alignItems="center"
         borderRadius="full"
@@ -32,15 +32,17 @@ const Header = () => {
           border: "1px solid rgba(255, 255, 255, 0.1)",
         }}
       >
-        <Logo />
+        <Box fontSize="3xl">
+          <Logo />
+        </Box>
         <Spacer />
         {auth?.isLoggedIn ? (
-          <HStack spacing={2}>
+          <>
             <NavLinkButton
               to="/chat"
               text="Go To Chat"
-              size="md" // Reduced size
-              fontSize="md" // Reduced size
+              size="lg"
+              fontSize="lg"
               borderRadius="full"
             />
             <NavLinkButton
@@ -48,29 +50,29 @@ const Header = () => {
               text="Logout"
               onClick={auth.logout}
               variant="ghost"
-              size="md" // Reduced size
-              fontSize="md" // Reduced size
+              size="lg"
+              fontSize="lg"
               borderRadius="full"
             />
-          </HStack>
+          </>
         ) : (
-          <HStack spacing={2}>
+          <>
             <NavLinkButton
               to="/login"
               text="Login"
               variant="ghost"
-              size="md" // Reduced size
-              fontSize="md" // Reduced size
+              size="lg"
+              fontSize="lg"
               borderRadius="full"
             />
             <NavLinkButton
               to="/signup"
               text="Signup"
-              size="md" // Reduced size
-              fontSize="md" // Reduced size
+              size="lg"
+              fontSize="lg"
               borderRadius="full"
             />
-          </HStack>
+          </>
         )}
       </Flex>
     </Box>

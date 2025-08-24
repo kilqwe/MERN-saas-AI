@@ -1,37 +1,19 @@
 import React from 'react';
-import {
-  HStack,
-  Link,
-  Image,
-  Text,
-  usePrefersReducedMotion,
-} from '@chakra-ui/react';
+import { HStack, Link, Image, Text, usePrefersReducedMotion } from '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
 import { Link as RouterLink } from 'react-router-dom';
 
-// Animation for rotation
 const spin = keyframes`
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 `;
 
-// ✅ Animation for a pulsing glow effect
-const glow = keyframes`
-  0% { box-shadow: 0 0 5px #64f3d5; }
-  50% { box-shadow: 0 0 20px #88f7e2; }
-  100% { box-shadow: 0 0 5px #64f3d5; }
-`;
-
 const Logo = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
-
-  // ✅ Combine both animations, separated by a comma
-  const spinAnimation = `${spin} infinite 10s linear`;
-  const glowAnimation = `${glow} infinite 4s ease-in-out`;
-
+  // ✅ Changed animation duration from '20s' to '10s' for a faster spin
   const animation = prefersReducedMotion
     ? undefined
-    : `${spinAnimation}, ${glowAnimation}`;
+    : `${spin} infinite 10s linear`;
 
   return (
     <HStack spacing={3} mr="auto">
@@ -41,8 +23,8 @@ const Logo = () => {
           alt="openai logo"
           boxSize="30px"
           className="image-inverted"
-          borderRadius="full"
-          animation={animation} // Apply the combined animations
+          animation={animation}
+          borderRadius="full" // ✅ Added this prop to make the image round
         />
       </Link>
       <Text
@@ -53,7 +35,7 @@ const Logo = () => {
         fontSize="20px"
         color="white"
       >
-        <Text as="span" fontWeight="bold">VENT</Text>BOT
+        <Text as="span" color="#ebfff8ff" fontWeight="bold">VENT</Text>Bot
       </Text>
     </HStack>
   );
