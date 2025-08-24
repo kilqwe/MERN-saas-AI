@@ -1,27 +1,25 @@
-import { Avatar, Box, Typography } from "@mui/material";
-import React from "react";
-import { useAuth } from "../../context/AuthContext";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import ReactMarkdown from "react-markdown";
+// src/components/chat/ChatItem.tsx
+import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
+import React from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { coldarkDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import ReactMarkdown from 'react-markdown';
+import { TypeAnimation } from 'react-type-animation';
 
+// Helper functions remain the same
 function extractCodeFromString(message: string): string[] | null {
-  if (message.includes("```")) {
-    return message.split("```");
+  if (message.includes('```')) {
+    return message.split('```');
   }
   return null;
 }
 
 function isCodeBlock(str: string) {
   return (
-    str.includes("=") ||
-    str.includes(";") ||
-    str.includes("[") ||
-    str.includes("]") ||
-    str.includes("{") ||
-    str.includes("}") ||
-    str.includes("#") ||
-    str.includes("//")
+    str.includes('=') || str.includes(';') || str.includes('[') ||
+    str.includes(']') || str.includes('{') || str.includes('}') ||
+    str.includes('#') || str.includes('//')
   );
 }
 
@@ -30,117 +28,102 @@ const ChatItem = ({
   role,
 }: {
   content: string;
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
 }) => {
   const auth = useAuth();
   const messageBlocks = extractCodeFromString(content);
+  const isUser = role === 'user';
 
-  const getInitials = (name?: string) => {
-    if (!name) return "";
-    const parts = name.trim().split(" ");
-    return `${parts[0]?.[0] || ""}${parts[1]?.[0] || ""}`.toUpperCase();
-  };
+  // ✨ Renders the typing indicator for the assistant
+  if (!isUser && content === "") {
+    return (
+      <Flex w="100%" justify="flex-start" mb={4}>
+        <Flex
+          maxW={{ base: '90%', md: '80%' }}
+          align="flex-start"
+          direction="row"
+          gap={3}
+        >
+          {/* SIMPLIFIED: Use the `src` prop directly on the Avatar */}
+          <Avatar size="sm" src="/openai.png" />
+          <Box
+            bg="gray.700"
+            color="white"
+            px={4}
+            py={2}
+            borderRadius="lg"
+            borderTopLeftRadius="none"
+          >
+            <TypeAnimation
+              sequence={['▋', 500, '▋', 500, '▋', 500]} // Blinking cursor effect
+              speed={70}
+              repeat={Infinity}
+              cursor={false}
+              wrapper="span"
+            />
+          </Box>
+        </Flex>
+      </Flex>
+    );
+  }
 
-  const isUser = role === "user";
+  // --- Functions for rendering message content ---
+  const renderTextBlock = (block: string, key: number) => (
+    <Text key={key} fontSize="md" as="span">
+      <ReactMarkdown>{block}</ReactMarkdown>
+    </Text>
+  );
+
+  const renderCodeBlock = (block: string, key: number) => (
+    <Box key={key} my={2} >
+      <SyntaxHighlighter language="javascript" style={coldarkDark} customStyle={{ borderRadius: '8px', fontSize: '1em' }}>
+        {block}
+      </SyntaxHighlighter>
+    </Box>
+  );
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: isUser ? "row-reverse" : "row",
-        alignItems: "flex-start",
-        gap: 2,
-        my: 1.5,
-      }}
-    >
-      {/* Avatar */}
-      {isUser ? (
-        <Avatar
-          sx={{
-            bgcolor: "black",
-            color: "white",
-            fontWeight: 700,
-            width: 40,
-            height: 40,
-          }}
-        >
-          {getInitials(auth?.user?.name) || "U"}
-        </Avatar>
-      ) : (
-        <Avatar
-          sx={{
-            bgcolor: "white",
-            width: 40,
-            height: 40,
-            p: 0.5,
-          }}
-        >
-          <img
-            src="/openai.png"
-            alt="assistant"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-            }}
-          />
-        </Avatar>
-      )}
-
-      {/* Message bubble */}
-      <Box
-        sx={{
-          bgcolor: isUser ? "#007b8a" : "black",
-          color: isUser ? "white" : "white",
-          borderRadius: 2,
-          px: 2,
-          py: 1.2,
-          maxWidth: "70%",
-          fontFamily: "Work Sans",
-          boxShadow: isUser
-            ? "0 1px 3px rgba(0,0,0,0.2)"
-            : "0 1px 3px rgba(0,0,0,0.1)",
-        }}
+    <Flex w="100%" justify={isUser ? 'flex-end' : 'flex-start'} mb={4}>
+      <Flex
+        maxW={{ base: '90%', md: '80%' }}
+        align="flex-start"
+        direction={isUser ? 'row-reverse' : 'row'}
+        gap={3}
       >
-        {!messageBlocks && (
-          <Typography sx={{ fontSize: "20px" }}>
-            <ReactMarkdown>{content}</ReactMarkdown>
-          </Typography>
-        )}
-
-        {messageBlocks &&
-          messageBlocks.length > 0 &&
-          messageBlocks.map((block, index) => {
-            if (isCodeBlock(block)) {
-              const lines = block.trim().split("\n");
-              let language = "javascript";
-              let code = block;
-
-              // Detect language from first line if present
-              if (lines.length > 1 && /^[a-zA-Z0-9+#-]+$/.test(lines[0])) {
-                language = lines[0].trim().toLowerCase();
-                code = lines.slice(1).join("\n");
-              }
-
-              return (
-                <SyntaxHighlighter
-                  key={index}
-                  style={coldarkDark}
-                  language={language}
-                >
-                  {code}
-                </SyntaxHighlighter>
-              );
-            }
-
-            return (
-              <Typography key={index} sx={{ fontSize: "20px" }}>
-                <ReactMarkdown>{block}</ReactMarkdown>
-              </Typography>
-            );
-          })}
-      </Box>
-    </Box>
+        {/* --- REFACTORED AVATAR LOGIC --- */}
+        {/* This is the standard and correct way to use Chakra's Avatar. */}
+        {/* It uses the `name` prop for initials or the `src` prop for an image. */}
+        <Avatar
+          size="sm"
+          name={isUser ? auth?.user?.name : undefined} // Generate initials for user if name exists
+          src={
+            isUser
+              ? auth?.user?.name ? '' : '/user.png' // If no name, use fallback user image
+              : '/openai.png' // Assistant always uses its image
+          }
+          bg={isUser ? 'blue.500' : 'gray.600'}
+          color="white"
+        />
+        <Box
+          bg={isUser ? 'blue.500' : 'gray.700'}
+          color="white"
+          px={4}
+          py={2}
+          borderRadius="lg"
+          borderTopRightRadius={isUser ? 'none' : 'lg'}
+          borderTopLeftRadius={isUser ? 'lg' : 'none'}
+        >
+          {!messageBlocks && renderTextBlock(content, 0)}
+          {messageBlocks &&
+            messageBlocks.map((block, index) =>
+              isCodeBlock(block)
+                ? renderCodeBlock(block, index)
+                // Ensure plain text blocks are wrapped correctly for markdown
+                : renderTextBlock(block.trim(), index) 
+            )}
+        </Box>
+      </Flex>
+    </Flex>
   );
 };
 

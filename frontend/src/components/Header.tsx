@@ -1,42 +1,81 @@
 // src/components/Header.tsx
-import { Flex, Spacer, HStack } from '@chakra-ui/react'; // 1. Import Chakra components
-import React from 'react';
-import Logo from './shared/Logo';
-import { useAuth } from '../context/AuthContext';
-import NavigationLink from './shared/NavigationLink'; // 2. We'll use the new Chakra-based version
+import { Box, Flex, Spacer } from "@chakra-ui/react";
+import React from "react";
+import { useAuth } from "../context/AuthContext";
+import NavLinkButton from "./shared/NavigationLink";
+import Logo from "./shared/Logo";
 
 const Header = () => {
   const auth = useAuth();
+
   return (
-    // 3. Replaced AppBar with a styled Flex component
-    <Flex
+    <Box
       as="header"
       position="sticky"
-      top="1rem"
-      mx="auto"
-      maxW="container.lg" // 4. Using theme-aware size token
-      borderRadius="50px"
-      bg="rgba(17, 25, 40, 0.75)" // background color
-      backdropFilter="blur(16px) saturate(180%)"
-      css={{ WebkitBackdropFilter: 'blur(16px) saturate(180%)' }} // For Safari
-      boxShadow="none"
-      p={{ base: 2, md: 3 }} // Responsive padding
-      align="center"
+      top="0"
+      zIndex="10"
+      p={{ base: 5, md: 6 }}
     >
-      <Logo />
-      <Spacer /> {/* 5. A clean way to push content apart */}
-      {auth?.isLoggedIn ? (
-        <HStack> {/* 6. HStack for consistent spacing */}
-          <NavigationLink to="/chat" text="Go To Chat" />
-          <NavigationLink to="/" text="Logout" onClick={auth.logout} variant="ghost" />
-        </HStack>
-      ) : (
-        <HStack>
-          <NavigationLink to="/login" text="Login" variant="ghost" />
-          <NavigationLink to="/signup" text="Signup" />
-        </HStack>
-      )}
-    </Flex>
+      <Flex
+        as="nav"
+        maxW="container.xl"
+        mx="auto"
+        px={10}
+        py={6}
+        justifyContent="space-between"
+        alignItems="center"
+        borderRadius="full"
+        bg="rgba(13, 19, 33, 0.75)"
+        sx={{
+          backdropFilter: "blur(10px) saturate(180%)",
+          WebkitBackdropFilter: "blur(10px) saturate(180%)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+        }}
+      >
+        <Box fontSize="3xl">
+          <Logo />
+        </Box>
+        <Spacer />
+        {auth?.isLoggedIn ? (
+          <>
+            <NavLinkButton
+              to="/chat"
+              text="Go To Chat"
+              size="lg"
+              fontSize="lg"
+              borderRadius="full"
+            />
+            <NavLinkButton
+              to="/"
+              text="Logout"
+              onClick={auth.logout}
+              variant="ghost"
+              size="lg"
+              fontSize="lg"
+              borderRadius="full"
+            />
+          </>
+        ) : (
+          <>
+            <NavLinkButton
+              to="/login"
+              text="Login"
+              variant="ghost"
+              size="lg"
+              fontSize="lg"
+              borderRadius="full"
+            />
+            <NavLinkButton
+              to="/signup"
+              text="Signup"
+              size="lg"
+              fontSize="lg"
+              borderRadius="full"
+            />
+          </>
+        )}
+      </Flex>
+    </Box>
   );
 };
 
