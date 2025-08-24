@@ -1,5 +1,4 @@
-import { Button } from '@chakra-ui/react';
-import { keyframes } from '@emotion/react';
+import { Button, keyframes } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
 const pulseGradient = keyframes`
@@ -25,9 +24,7 @@ const NavigationLink = ({
   onClick,
   variant = 'solid',
   bgGradient = "linear-gradient(90deg, #4F46E5, #A855F7, #EC4899, #4F46E5)",
-  size,
-  fontSize,
-  borderRadius,
+  ...rest
 }: Props) => {
   
   const animationProps = {
@@ -46,9 +43,7 @@ const NavigationLink = ({
         color="white"
         fontWeight="600"
         _hover={{ bg: 'whiteAlpha.200' }}
-        size={size}
-        fontSize={fontSize}
-        borderRadius={borderRadius}
+        {...rest}
       >
         {text}
       </Button>
@@ -66,9 +61,7 @@ const NavigationLink = ({
       _hover={{
         boxShadow: '0 0 15px rgba(255, 255, 255, 0.4)',
       }}
-      size={size}
-      fontSize={fontSize}
-      borderRadius={borderRadius}
+      {...rest}
     >
       {text}
     </Button>
