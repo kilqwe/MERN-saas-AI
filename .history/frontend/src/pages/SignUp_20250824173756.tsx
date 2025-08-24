@@ -1,3 +1,4 @@
+// src/pages/SignUp.tsx
 import {
   Box,
   Button,
@@ -15,22 +16,23 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const SignUp = () => {
   const auth = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     try {
-      toast.loading("Logging in!", { id: "login" });
-      await auth?.login(email, password);
-      toast.success("Logged in successfully!", { id: "login" });
+      toast.loading("Signing up!", { id: "signup" });
+      await auth?.signup(name, email, password);
+      toast.success("Signed up successfully!", { id: "signup" });
     } catch (error) {
       console.log(error);
-      toast.error("Login failed!", { id: "login" });
+      toast.error("Sign up failed!", { id: "signup" });
     }
   };
 
@@ -58,32 +60,40 @@ const Login = () => {
           direction="column"
           justify="space-between"
           p={10}
-          bgImage="url('/ventbotgif.gif')"
+          bgImage="ventbotgif.gif"
           bgSize="cover"
           bgPosition="center"
           display={{ base: "none", md: "flex" }}
         />
 
-        {/* Right Panel: Glassmorphic Login */}
+        {/* Right Panel: Glassmorphic Sign Up */}
         <Flex
           flex={1}
           p={10}
           direction="column"
           justify="center"
           align="center"
+          
           sx={{
             backdropFilter: "blur(14px) saturate(160%)",
             WebkitBackdropFilter: "blur(14px) saturate(160%)",
+            borderLeft: { base: "none", md: "1px solid rgba(255,255,255,0.12)" },
           }}
-          borderLeft={{ base: "none", md: "1px solid rgba(255,255,255,0.12)" }}
-          bgGradient="linear(to-br, rgba(255,255,255,0.08), rgba(255,255,255,0.02))"
+          borderRadius="2xl"
         >
           <Box as="form" onSubmit={handleSubmit} w="full" maxW="350px">
             <VStack spacing={6} align="stretch">
-              <VStack spacing={1} align="flex-start" w="full" mb={2}>
-                <Heading color="white">Login</Heading>
-                <Text color="gray.300">Enter your credentials to continue</Text>
+              <VStack spacing={1} align="flex-start" w="full">
+                <Heading color="white">Sign Up</Heading>
+                <Text color="gray.300">
+                  Enter your credentials to create your account
+                </Text>
               </VStack>
+
+              <FormControl>
+                <FormLabel color="white">Name</FormLabel>
+                <CustomizedInput type="text" name="name" label="Name" />
+              </FormControl>
 
               <FormControl>
                 <FormLabel color="white">Email</FormLabel>
@@ -95,6 +105,7 @@ const Login = () => {
                 <CustomizedInput type="password" name="password" label="Password" />
               </FormControl>
 
+              {/* ✅ EDITED BUTTON BELOW */}
               <Button
                 type="submit"
                 bg="#4A90E2"
@@ -112,7 +123,7 @@ const Login = () => {
                 }}
                 transition="all 0.2s ease-in-out"
               >
-                Login
+                Sign Up
               </Button>
             </VStack>
           </Box>
@@ -122,4 +133,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

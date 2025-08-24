@@ -45,8 +45,8 @@ const Logo = () => {
           animation={animation}
           transition="transform 0.3s ease, box-shadow 0.3s ease"
           _hover={{
-            transform: 'scale(1.2) rotate(10deg)', // keep rotation + add scale
-            boxShadow: '0 0 25px #88f7e2',
+            transform: 'scale(1.2)', // makes it pop out
+            boxShadow: '0 0 25px #88f7e2', // extra glow on hover
           }}
         />
       </Link>
