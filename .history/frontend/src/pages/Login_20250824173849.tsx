@@ -1,3 +1,4 @@
+// src/pages/Login.tsx
 import {
   Box,
   Button,
@@ -58,7 +59,7 @@ const Login = () => {
           direction="column"
           justify="space-between"
           p={10}
-          bgImage="url('/ventbotgif.gif')"
+          bgImage="ventbotgif.gif"
           bgSize="cover"
           bgPosition="center"
           display={{ base: "none", md: "flex" }}
@@ -74,8 +75,9 @@ const Login = () => {
           sx={{
             backdropFilter: "blur(14px) saturate(160%)",
             WebkitBackdropFilter: "blur(14px) saturate(160%)",
+            borderLeft: { base: "none", md: "1px solid rgba(255,255,255,0.12)" },
           }}
-          borderLeft={{ base: "none", md: "1px solid rgba(255,255,255,0.12)" }}
+          borderRadius="2xl"
           bgGradient="linear(to-br, rgba(255,255,255,0.08), rgba(255,255,255,0.02))"
         >
           <Box as="form" onSubmit={handleSubmit} w="full" maxW="350px">
@@ -87,14 +89,15 @@ const Login = () => {
 
               <FormControl>
                 <FormLabel color="white">Email</FormLabel>
-                <CustomizedInput type="email" name="email" label="Email" />
+                <CustomizedInput type="email" name="email" label="email"/>
               </FormControl>
 
               <FormControl>
                 <FormLabel color="white">Password</FormLabel>
-                <CustomizedInput type="password" name="password" label="Password" />
+                <CustomizedInput type="password" name="password" label="email" />
               </FormControl>
 
+              {/* ✅ EDITED BUTTON BELOW */}
               <Button
                 type="submit"
                 bg="#4A90E2"
@@ -103,11 +106,11 @@ const Login = () => {
                 fontSize="md"
                 fontWeight="bold"
                 rightIcon={<IoIosLogIn />}
-                w="full"
-                borderRadius="lg"
+                w="full" // Makes the button longer
+                borderRadius="lg" // Gives slightly rounded corners
                 _hover={{
                   bg: '#357ABD',
-                  transform: 'scale(1.02)',
+                  transform: 'scale(1.02)', // Reduced scale to look better on a wide button
                   boxShadow: '0 0 15px rgba(74, 144, 226, 0.7)',
                 }}
                 transition="all 0.2s ease-in-out"

@@ -10,7 +10,7 @@ import {
   Avatar
 } from '@chakra-ui/react';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useAuth, type User } from '../context/AuthContext'; // Assuming you export the User type from your context
+import { useAuth, User } from '../context/AuthContext'; // Assuming you export the User type from your context
 import { IoMdSend } from 'react-icons/io';
 import { CgStopwatch } from 'react-icons/cg';
 import { HamburgerIcon, DeleteIcon } from '@chakra-ui/icons';
@@ -119,7 +119,7 @@ export const Chat = () => {
         />
         <ChatInput
           value={inputValue}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInputValue(e.target.value)}
+          onChange={(e) => setInputValue(e.target.value)}
           onSubmit={handleSubmit}
           onStop={handleStopGeneration}
           isGenerating={isGenerating}

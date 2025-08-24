@@ -1,7 +1,7 @@
 import {createContext, useContext, useEffect, useState, type ReactNode} from 'react';
 import { checkAuthStatus, loginUser, logoutUser, signupUser } from '../helpers/api-communicator';
 
-export type User = {
+type User = {
     name : string;
     email: string;
 

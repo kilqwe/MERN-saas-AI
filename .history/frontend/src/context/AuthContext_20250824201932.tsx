@@ -1,7 +1,7 @@
 import {createContext, useContext, useEffect, useState, type ReactNode} from 'react';
 import { checkAuthStatus, loginUser, logoutUser, signupUser } from '../helpers/api-communicator';
 
-export type User = {
+type User = {
     name : string;
     email: string;
 
@@ -65,3 +65,4 @@ export const AuthProvider = ({children} : {children : ReactNode}) => {
 };
 
 export const useAuth = () =>  useContext(AuthContext);
+export type {User};

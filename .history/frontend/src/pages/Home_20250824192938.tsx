@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Flex, VStack, Image } from '@chakra-ui/react';
-import { keyframes } from '@emotion/react';
+import { Box, Flex, VStack, Image, keyframes } from '@chakra-ui/react';
 import TyperAnimation from '../components/typer/TyperAnimation';
 import Footer from '../components/footer/Footer';
 
