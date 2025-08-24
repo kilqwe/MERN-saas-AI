@@ -8,21 +8,29 @@ import axios from "axios";
 import { Toaster } from 'react-hot-toast';
 import React from 'react';
 
-// Import Chakra UI components
-import { ChakraProvider } from '@chakra-ui/react';
-import { extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 // Production API base URL
 //axios.defaults.baseURL = "https://ventbot-saas-ai.onrender.com/api/v1";
 axios.defaults.baseURL = "http://localhost:5000/api/v1";
 axios.defaults.withCredentials = true;
 
-// 1. Create a custom theme with Chakra's `extendTheme`
 const theme = extendTheme({
   colors: {
-    // These names can be used directly in style props, e.g., color="primary"
     primary: '#1976d2',
     secondary: '#dc004e',
+  },
+  // 1. Add global styles for the background
+  styles: {
+    global: {
+      'body': {
+        backgroundImage: `url("/bg2.png")`, // The path to your image
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed", // Keeps the background fixed during scroll
+      },
+    },
   },
 });
 
@@ -30,7 +38,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
       <BrowserRouter>
-        {/* 2. Replace ThemeProvider with ChakraProvider */}
         <ChakraProvider theme={theme}>
           <Toaster position='bottom-right' />
           <App />
