@@ -44,7 +44,7 @@ const ChatItem = ({
       w="100%"
     >
       <Avatar
-        bg={isUser ? "#302e30ff" : "black"}
+        bg={isUser ? "#333133ff" : "white"}
         color={isUser ? "white" : "black"}
         name={isUser ? auth?.user?.name : undefined}
         src={isUser ? undefined : "/openai.png"}
@@ -63,7 +63,7 @@ const ChatItem = ({
         borderColor="whiteAlpha.300"
         fontFamily="Work Sans"
       >
-        <Text fontSize="sm" as="div">
+        <Text fontSize="lg" as="div">
           <ReactMarkdown components={markdownComponents}>
             {content}
           </ReactMarkdown>

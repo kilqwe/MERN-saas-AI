@@ -29,7 +29,6 @@ const NavigationLink = ({
   size,
   fontSize,
   borderRadius,
-  width
 }: Props) => {
   
   const animationProps = {
@@ -51,7 +50,6 @@ const NavigationLink = ({
         size={size}
         fontSize={fontSize}
         borderRadius={borderRadius}
-        width={width}
       >
         {text}
       </Button>
@@ -72,7 +70,6 @@ const NavigationLink = ({
       size={size}
       fontSize={fontSize}
       borderRadius={borderRadius}
-      width={width}
     >
       {text}
     </Button>

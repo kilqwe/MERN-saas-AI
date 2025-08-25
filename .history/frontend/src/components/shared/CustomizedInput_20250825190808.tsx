@@ -18,7 +18,7 @@ const CustomizedInput = (props: Props) => {
         fontSize="md"
         color="white"
         // ✅ Switched to a darker background to match the duller theme
-        bg="rgba(0, 0, 0, 0.14)"
+        bg="rgba(0, 0, 0, 0.12)"
         border="1px solid"
         borderColor="rgba(255, 255, 255, 0.15)"
         focusBorderColor="rgba(74, 144, 226, 0.7)"

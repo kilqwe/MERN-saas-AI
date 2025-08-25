@@ -51,7 +51,6 @@ const NavigationLink = ({
         size={size}
         fontSize={fontSize}
         borderRadius={borderRadius}
-        width={width}
       >
         {text}
       </Button>
@@ -72,7 +71,6 @@ const NavigationLink = ({
       size={size}
       fontSize={fontSize}
       borderRadius={borderRadius}
-      width={width}
     >
       {text}
     </Button>

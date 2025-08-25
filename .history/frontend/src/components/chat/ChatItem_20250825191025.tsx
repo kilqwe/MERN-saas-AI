@@ -63,7 +63,7 @@ const ChatItem = ({
         borderColor="whiteAlpha.300"
         fontFamily="Work Sans"
       >
-        <Text fontSize="sm" as="div">
+        <Text fontSize="md" as="div">
           <ReactMarkdown components={markdownComponents}>
             {content}
           </ReactMarkdown>

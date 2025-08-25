@@ -44,26 +44,25 @@ const ChatItem = ({
       w="100%"
     >
       <Avatar
-        bg={isUser ? "#302e30ff" : "black"}
-        color={isUser ? "white" : "black"}
+        bg={isUser ? "black" : "white"}
         name={isUser ? auth?.user?.name : undefined}
         src={isUser ? undefined : "/openai.png"}
         p={!isUser ? 0.5 : undefined}
       />
 
+      {/* --- EDITS ARE BELOW --- */}
       <Box
-        // ✅ Changed user chat color to a more subtle, semi-transparent blue-gray
-        bg={isUser ? "rgba(55, 65, 81, 0.8)" : "rgba(30, 25, 60, 0.7)"}
+        bg={isUser ? "#007b8a" : "rgba(30, 25, 60, 0.7)"} // ✅ New complementary color for AI
         color="white"
         borderRadius="xl"
-        px={5}
-        py={3}
-        maxW={{ base: "90%", md: "80%" }}
-        border="1px solid"
-        borderColor="whiteAlpha.300"
+        px={5} // ✅ Increased horizontal padding
+        py={3} // ✅ Increased vertical padding
+        maxW={{ base: "70%", md: "65%" }} // ✅ Made the bubble wider
+        border="1px solid" // ✅ Added a border
+        borderColor="whiteAlpha.300" // ✅ Subtle white border color
         fontFamily="Work Sans"
       >
-        <Text fontSize="sm" as="div">
+        <Text fontSize="xl" as="div">
           <ReactMarkdown components={markdownComponents}>
             {content}
           </ReactMarkdown>

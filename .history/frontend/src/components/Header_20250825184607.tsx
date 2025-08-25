@@ -43,7 +43,6 @@ const Header = () => {
               fontSize="md"
               bgGradient="linear-gradient(90deg, #c64453ff, #f04262ff, #ed80aaff, #c64453ff)"
               width="140px"
-              borderRadius="3xl"
             />
           </HStack>
         ) : (

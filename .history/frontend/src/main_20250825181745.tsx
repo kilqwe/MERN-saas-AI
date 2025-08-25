@@ -64,7 +64,7 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         {/* ✅ FIX 2: Pass the custom theme to the provider */}
         <ChakraProvider theme={theme}>
-          <Toaster position='bottom-right' toastOptions={toastOptions} />
+          <Toaster position='bottom-right' />
           <App />
         </ChakraProvider>
       </BrowserRouter>

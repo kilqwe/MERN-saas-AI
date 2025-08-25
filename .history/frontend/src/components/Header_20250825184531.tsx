@@ -34,7 +34,7 @@ const Header = () => {
         <Spacer />
         {auth?.isLoggedIn ? (
           <HStack spacing={2}>
-            <NavLinkButton to="/chat" text="Go To Chat" size="md" fontSize="md" borderRadius="3xl" width="140px" />
+            <NavLinkButton to="/chat" text="Go To Chat" size="md" fontSize="md" borderRadius="3xl" />
             <NavLinkButton
               to="/"
               text="Logout"
@@ -43,7 +43,6 @@ const Header = () => {
               fontSize="md"
               bgGradient="linear-gradient(90deg, #c64453ff, #f04262ff, #ed80aaff, #c64453ff)"
               width="140px"
-              borderRadius="3xl"
             />
           </HStack>
         ) : (

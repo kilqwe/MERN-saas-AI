@@ -24,6 +24,7 @@ const Header = () => {
         justifyContent="space-between"
         alignItems="center"
         bg="rgba(13, 19, 33, 0.75)"
+        borderRadius={"xl"}
         sx={{
           backdropFilter: "blur(10px) saturate(180%)",
           WebkitBackdropFilter: "blur(10px) saturate(180%)",
@@ -34,7 +35,7 @@ const Header = () => {
         <Spacer />
         {auth?.isLoggedIn ? (
           <HStack spacing={2}>
-            <NavLinkButton to="/chat" text="Go To Chat" size="md" fontSize="md" borderRadius="3xl" width="140px" />
+            <NavLinkButton to="/chat" text="Go To Chat" size="md" fontSize="md" />
             <NavLinkButton
               to="/"
               text="Logout"
@@ -42,14 +43,12 @@ const Header = () => {
               size="md"
               fontSize="md"
               bgGradient="linear-gradient(90deg, #c64453ff, #f04262ff, #ed80aaff, #c64453ff)"
-              width="140px"
-              borderRadius="3xl"
             />
           </HStack>
         ) : (
           <HStack spacing={4}>
-            <NavLinkButton to="/login" text="Login" size="md" fontSize="md" borderRadius="3xl" width="140px" />
-            <NavLinkButton to="/signup" text="Signup" size="md" fontSize="md" borderRadius="3xl" width="140px" bgGradient = "linear-gradient(90deg, #EC4899, #8e46e5ff, #a25ce4ff, #EC4899)" />
+            <NavLinkButton to="/login" text="Login" size="md" fontSize="md" />
+            <NavLinkButton to="/signup" text="Signup" size="md" fontSize="md" bgGradient = "linear-gradient(90deg, #EC4899, #4F46E5, #A855F7, #EC4899)" />
           </HStack>
         )}
       </Flex>

@@ -44,16 +44,17 @@ const ChatItem = ({
       w="100%"
     >
       <Avatar
-        bg={isUser ? "#302e30ff" : "black"}
-        color={isUser ? "white" : "black"}
+        // ✅ Changed user avatar to have a white initial on a black background
+        bg={isUser ? "black" : "white"}
+        color={isUser ? "white" : "#5B21B6"}
         name={isUser ? auth?.user?.name : undefined}
         src={isUser ? undefined : "/openai.png"}
         p={!isUser ? 0.5 : undefined}
       />
 
       <Box
-        // ✅ Changed user chat color to a more subtle, semi-transparent blue-gray
-        bg={isUser ? "rgba(55, 65, 81, 0.8)" : "rgba(30, 25, 60, 0.7)"}
+        // ✅ Changed user chat color to a complementary purple
+        bg={isUser ? "#5B21B6" : "rgba(30, 25, 60, 0.7)"}
         color="white"
         borderRadius="xl"
         px={5}
@@ -63,7 +64,7 @@ const ChatItem = ({
         borderColor="whiteAlpha.300"
         fontFamily="Work Sans"
       >
-        <Text fontSize="sm" as="div">
+        <Text fontSize="lg" as="div">
           <ReactMarkdown components={markdownComponents}>
             {content}
           </ReactMarkdown>
