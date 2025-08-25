@@ -1,7 +1,12 @@
 import axios from "axios";
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1"; // ✅ use environment variable for base URL
-axios.defaults.withCredentials = true; // ✅ allow cookies for auth
+axios.defaults.baseURL = import.meta.env.VITE_API_URL; 
+axios.defaults.withCredentials = true;
+
+// Error helper
+const handleError = (err: any, defaultMsg: string) => {
+  throw new Error(err.response?.data?.message || defaultMsg);
+};
 
 // ------------------- AUTH -------------------
 
@@ -10,7 +15,7 @@ export const loginUser = async (email: string, password: string) => {
     const res = await axios.post("/user/login", { email, password });
     return res.data;
   } catch (err: any) {
-    throw new Error(err.response?.data?.message || "Unable to login.");
+    handleError(err, "Unable to login.");
   }
 };
 
@@ -19,7 +24,7 @@ export const signupUser = async (name: string, email: string, password: string) 
     const res = await axios.post("/user/signup", { name, email, password });
     return res.data;
   } catch (err: any) {
-    throw new Error(err.response?.data?.message || "Unable to signup.");
+    handleError(err, "Unable to signup.");
   }
 };
 
@@ -28,7 +33,7 @@ export const checkAuthStatus = async () => {
     const res = await axios.get("/user/auth-status");
     return res.data;
   } catch (err: any) {
-    throw new Error(err.response?.data?.message || "Unable to authenticate.");
+    handleError(err, "Unable to authenticate.");
   }
 };
 
@@ -37,7 +42,7 @@ export const logoutUser = async () => {
     const res = await axios.get("/user/logout");
     return res.data;
   } catch (err: any) {
-    throw new Error(err.response?.data?.message || "Unable to logout.");
+    handleError(err, "Unable to logout.");
   }
 };
 
@@ -45,11 +50,10 @@ export const logoutUser = async () => {
 
 export const sendChatRequest = async (message: string) => {
   try {
-    // ✅ Backend route is /chat/new (not /user/chat/new)
     const res = await axios.post("/chat/new", { message });
     return res.data;
   } catch (err: any) {
-    throw new Error(err.response?.data?.message || "Unable to send chat request.");
+    handleError(err, "Unable to send chat request.");
   }
 };
 
@@ -58,7 +62,7 @@ export const getUserChats = async () => {
     const res = await axios.get("/chat/all-chats");
     return res.data;
   } catch (err: any) {
-    throw new Error(err.response?.data?.message || "Unable to get chat history.");
+    handleError(err, "Unable to get chat history.");
   }
 };
 
@@ -67,6 +71,6 @@ export const deleteUserChats = async () => {
     const res = await axios.delete("/chat/delete");
     return res.data;
   } catch (err: any) {
-    throw new Error(err.response?.data?.message || "Unable to delete chats.");
+    handleError(err, "Unable to delete chats.");
   }
 };
