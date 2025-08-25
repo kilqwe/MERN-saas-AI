@@ -10,8 +10,8 @@ config();
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:3000",
-  "https://mern-saas-ai-umber.vercel.app"  // ✅ updated to match your Vercel frontend
+  "http://localhost:3000",                     // local dev
+  "https://mern-saas-ai-umber.vercel.app"      // deployed frontend
 ];
 
 const corsOptions = {
@@ -25,13 +25,20 @@ const corsOptions = {
   credentials: true,
 };
 
+console.log("✅ CORS allowed origins:", allowedOrigins);
+
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // ✅ handle preflight
+
+// ✅ Explicitly handle preflight OPTIONS
+app.options("*", cors(corsOptions), (req, res) => {
+  res.sendStatus(200);
+});
 
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(morgan("dev"));
 
+// API routes
 app.use("/api/v1/", appRouter);
 
 export default app;
