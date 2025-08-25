@@ -9,13 +9,11 @@ config();
 
 const app = express();
 
-// Allowed origins (for Vercel + local dev)
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://mern-saas-ai-umber.vercel.app",
+  "https://mern-saas-ai-umber.vercel.app"  // ✅ updated to match your Vercel frontend
 ];
 
-// CORS config
 const corsOptions = {
   origin: (origin: any, callback: any) => {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -27,9 +25,8 @@ const corsOptions = {
   credentials: true,
 };
 
-// Apply CORS + preflight support
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // allow preflight for all routes
+app.options("*", cors(corsOptions)); // ✅ handle preflight
 
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
