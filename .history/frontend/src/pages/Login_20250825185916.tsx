@@ -1,3 +1,4 @@
+// src/pages/Login.tsx
 import {
   Box,
   Button,
@@ -68,13 +69,14 @@ const Login = () => {
           justify="center"
           align="center"
           sx={{
-            backdropFilter: "blur(100px) saturate(180%)",
-            WebkitBackdropFilter: "blur(100px) saturate(180%)",
+            // ✅ Increased blur for a frostier look
+            backdropFilter: "blur(20px) saturate(180%)",
+            WebkitBackdropFilter: "blur(20px) saturate(180%)",
           }}
-          // ✅ Switched to a darker, "duller" gradient
-          bgGradient="linear(to-br, rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0.3))"
+          // ✅ Brighter gradient and more defined border
+          bgGradient="linear(to-br, rgba(255,255,255,0.1), rgba(255,255,255,0.05))"
           border="1px solid"
-          borderColor="rgba(255, 255, 255, 0.1)" // ✅ Made border more subtle
+          borderColor="rgba(255, 255, 255, 0.18)"
         >
           <Box as="form" onSubmit={handleSubmit} w="full" maxW="350px">
             <VStack spacing={6} align="stretch">

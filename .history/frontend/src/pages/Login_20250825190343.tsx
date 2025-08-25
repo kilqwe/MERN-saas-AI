@@ -68,8 +68,8 @@ const Login = () => {
           justify="center"
           align="center"
           sx={{
-            backdropFilter: "blur(100px) saturate(180%)",
-            WebkitBackdropFilter: "blur(100px) saturate(180%)",
+            backdropFilter: "blur(60px) saturate(180%)",
+            WebkitBackdropFilter: "blur(60px) saturate(180%)",
           }}
           // ✅ Switched to a darker, "duller" gradient
           bgGradient="linear(to-br, rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0.3))"
