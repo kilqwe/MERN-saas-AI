@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:5000/api/v1"; // ✅ use environment variable for base URL
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1"; // ✅ use environment variable for base URL
 axios.defaults.withCredentials = true; // ✅ allow cookies for auth
 
 // ------------------- AUTH -------------------
