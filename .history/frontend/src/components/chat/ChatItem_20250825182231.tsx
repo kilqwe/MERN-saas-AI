@@ -57,12 +57,12 @@ const ChatItem = ({
         borderRadius="xl"
         px={5} // ✅ Increased horizontal padding
         py={3} // ✅ Increased vertical padding
-        maxW={{ base: "70%", md: "65%" }} // ✅ Made the bubble wider
+        maxW={{ base: "90%", md: "80%" }} // ✅ Made the bubble wider
         border="1px solid" // ✅ Added a border
         borderColor="whiteAlpha.300" // ✅ Subtle white border color
         fontFamily="Work Sans"
       >
-        <Text fontSize="md" as="div">
+        <Text fontSize="lg" as="div">
           <ReactMarkdown components={markdownComponents}>
             {content}
           </ReactMarkdown>

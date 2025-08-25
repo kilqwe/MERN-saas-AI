@@ -62,7 +62,7 @@ const ChatItem = ({
         borderColor="whiteAlpha.300" // ✅ Subtle white border color
         fontFamily="Work Sans"
       >
-        <Text fontSize="md" as="div">
+        <Text fontSize="xl" as="div">
           <ReactMarkdown components={markdownComponents}>
             {content}
           </ReactMarkdown>

@@ -46,8 +46,8 @@ const Header = () => {
           </HStack>
         ) : (
           <HStack spacing={4}>
-            <NavLinkButton to="/login" text="Login" size="md" fontSize="md" borderRadius="2xl"  />
-            <NavLinkButton to="/signup" text="Signup" size="md" fontSize="md" borderRadius="2xl" bgGradient = "linear-gradient(90deg, #EC4899, #4F46E5, #A855F7, #EC4899)" />
+            <NavLinkButton to="/login" text="Login" size="md" fontSize="md" borderRadius="2xl" />
+            <NavLinkButton to="/signup" text="Signup" size="md" fontSize="md" bgGradient = "linear-gradient(90deg, #EC4899, #4F46E5, #A855F7, #EC4899)" />
           </HStack>
         )}
       </Flex>
