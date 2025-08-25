@@ -9,6 +9,7 @@ const app = express();
 const allowedOrigins = [
     process.env.FRONTEND_URL
 ];
+console.log('CORS is configured to allow origin: ${process.env.FRONTEND_URL}');
 app.use(cors({
     origin: function (origin, callback) {
         // Allow no-origin requests (like Postman or mobile apps)
