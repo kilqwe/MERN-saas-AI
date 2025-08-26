@@ -11,7 +11,7 @@ import React from 'react';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 // Production API base URL
-axios.defaults.baseURL = "https://ventbot-saas-ai.onrender.com/api/v1";
+axios.defaults.baseURL = "https://mern-saas-ai.onrender.com/api/v1";
 axios.defaults.withCredentials = true;
 
 const theme = extendTheme({
