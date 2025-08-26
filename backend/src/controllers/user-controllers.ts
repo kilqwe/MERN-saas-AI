@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import { hash, compare } from "bcrypt";
 import { createToken } from "../utils/token-manager.js";
 import { COOKIE_NAME } from "../utils/constants.js";
+import { tr } from "framer-motion/client";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -35,8 +36,8 @@ export const userSignup = async (req: Request, res: Response, next: NextFunction
       httpOnly: true,
       signed: true,
       path: "/",
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
+      secure: true,
+      sameSite: "none",
     });
 
     // Set new cookie
@@ -44,8 +45,8 @@ export const userSignup = async (req: Request, res: Response, next: NextFunction
       httpOnly: true,
       signed: true,
       path: "/",
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
+      secure: true,
+      sameSite: "none",
       expires,
     });
     console.log("Cookie set:", res.getHeaders()["set-cookie"]);
@@ -75,16 +76,16 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
       httpOnly: true,
       signed: true,
       path: "/",
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
+      secure: true,
+      sameSite: "none",
     });
 
     res.cookie(COOKIE_NAME, token, {
       httpOnly: true,
       signed: true,
       path: "/",
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
+      secure: true,
+      sameSite: "none",
       expires,
     });
 
@@ -125,8 +126,8 @@ export const userLogout = async (req: Request, res: Response, next: NextFunction
       httpOnly: true,
       signed: true,
       path: "/",
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
+      secure: true,
+      sameSite:  "none",
     });
 
     return res.status(200).json({ message: "OK", name: user.name, email: user.email });
