@@ -18,7 +18,7 @@ app.use(cors({
 
 // ✅ Middlewares
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET)); 
 
 app.use("/api/v1/", appRouter);
 export default app;
