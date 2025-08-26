@@ -9,8 +9,7 @@ config();
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:3000",                     // local dev
+const allowedOrigins = [                     
   "https://mern-saas-ai-umber.vercel.app"      // deployed frontend
 ];
 
