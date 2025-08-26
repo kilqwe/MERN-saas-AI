@@ -12,7 +12,7 @@ const handleError = (err: any, defaultMsg: string) => {
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    const res = await axios.post("/user/login", { email, password });
+    const res = await axios.post("/api/v1/user/login", { email, password });
     return res.data;
   } catch (err: any) {
     handleError(err, "Unable to login.");
@@ -21,7 +21,7 @@ export const loginUser = async (email: string, password: string) => {
 
 export const signupUser = async (name: string, email: string, password: string) => {
   try {
-    const res = await axios.post("/user/signup", { name, email, password });
+    const res = await axios.post("/api/v1/user/signup", { name, email, password });
     return res.data;
   } catch (err: any) {
     handleError(err, "Unable to signup.");
@@ -30,7 +30,7 @@ export const signupUser = async (name: string, email: string, password: string) 
 
 export const checkAuthStatus = async () => {
   try {
-    const res = await axios.get("/user/auth-status");
+    const res = await axios.get("/api/v1/user/auth-status");
     return res.data;
   } catch (err: any) {
     handleError(err, "Unable to authenticate.");
@@ -39,7 +39,7 @@ export const checkAuthStatus = async () => {
 
 export const logoutUser = async () => {
   try {
-    const res = await axios.get("/user/logout");
+    const res = await axios.get("/api/v1/user/logout");
     return res.data;
   } catch (err: any) {
     handleError(err, "Unable to logout.");
@@ -50,7 +50,7 @@ export const logoutUser = async () => {
 
 export const sendChatRequest = async (message: string) => {
   try {
-    const res = await axios.post("/chat/new", { message });
+    const res = await axios.post("/api/v1/chat/new", { message });
     return res.data;
   } catch (err: any) {
     handleError(err, "Unable to send chat request.");
@@ -59,7 +59,7 @@ export const sendChatRequest = async (message: string) => {
 
 export const getUserChats = async () => {
   try {
-    const res = await axios.get("/chat/all-chats");
+    const res = await axios.get("/api/v1/chat/all-chats");
     return res.data;
   } catch (err: any) {
     handleError(err, "Unable to get chat history.");
@@ -68,7 +68,7 @@ export const getUserChats = async () => {
 
 export const deleteUserChats = async () => {
   try {
-    const res = await axios.delete("/chat/delete");
+    const res = await axios.delete("/api/v1/chat/delete");
     return res.data;
   } catch (err: any) {
     handleError(err, "Unable to delete chats.");
