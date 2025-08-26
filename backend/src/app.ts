@@ -7,7 +7,7 @@ const app = express();
 // ✅ Allowed origins (add your Vercel frontend here)
 const allowedOrigins = [
   "http://localhost:3000",                // local dev
-  "https://your-frontend.vercel.app"      // your Vercel frontend domain
+  "https://mern-saas-ai-umber.vercel.app"      // your Vercel frontend domain
 ];
 
 // ✅ CORS middleware
