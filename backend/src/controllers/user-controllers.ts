@@ -48,6 +48,8 @@ export const userSignup = async (req: Request, res: Response, next: NextFunction
       sameSite: isProduction ? "none" : "lax",
       expires,
     });
+    console.log("Cookie set:", res.getHeaders()["set-cookie"]);
+
 
     return res.status(201).json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
@@ -85,6 +87,9 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
       sameSite: isProduction ? "none" : "lax",
       expires,
     });
+
+    console.log("Cookie set:", res.getHeaders()["set-cookie"]);
+
 
     return res.status(200).json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
