@@ -18,14 +18,14 @@ It lets users chat with AI, view conversation history, and manage their sessions
 - 🧠 AI-powered chats using **Groq SDK**
 - 🔐 Secure authentication with **JWT & HttpOnly cookies**
 - 💻 Full chat history and clear conversation functionality
-- ⚡ Responsive and modern UI using **React + MUI**
+- ⚡ Responsive and modern UI using **React + Chakra-UI**
 
 ---
 
 ## 📦 Tech Stack
 
 - **Backend:** Node.js, Express, MongoDB  
-- **Frontend:** React, Vite, MUI, TypeScript  
+- **Frontend:** React, Vite, Chakra-UI, TypeScript  
 - **Deployment:** Render (backend), Vercel (frontend)  
 - **Authentication:** JWT with cookies  
 - **AI Integration:** Groq SDK
@@ -64,10 +64,10 @@ Set environment variables
 Create a .env file with:
 ```
 PORT=5000
-MONGO_URI=<your-mongo-uri>
+MONGO_URI=<your-mongo-url>
 COOKIE_SECRET=<your-cookie-secret>
 GROQ_API_KEY=<your-groq-api-key>
-FRONTEND_URL=https://ventbot-saas-ai.vercel.app
+FRONTEND_URL=https://ventbot-saas-ai.umber.vercel.app
 
 ```
 Run locally
