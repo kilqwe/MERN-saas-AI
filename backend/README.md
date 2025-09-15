@@ -15,14 +15,14 @@ It lets users chat with AI, view conversation history, and manage their sessions
 - 🧠 AI-powered chats using **Groq SDK**
 - 🔐 Secure authentication with **JWT & HttpOnly cookies**
 - 💻 Full chat history and clear conversation functionality
-- ⚡ Responsive and modern UI using **React + MUI**
+- ⚡ Responsive and modern UI using **React + Chakra**
 
 ---
 
 ## 📦 Tech Stack
 
 - **Backend:** Node.js, Express, MongoDB  
-- **Frontend:** React, Vite, MUI  
+- **Frontend:** React, Vite, Chakra  
 - **Deployment:** Render (backend), Vercel (frontend)  
 - **Authentication:** JWT with cookies  
 - **AI Integration:** Groq SDK
