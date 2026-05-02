@@ -7,13 +7,17 @@ import { tr } from "framer-motion/client";
 
 const isProduction = process.env.NODE_ENV === "production";
 
+const getErrorMessage = (error: unknown) => {
+  return error instanceof Error ? error.message : String(error);
+};
+
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await User.find();
     return res.status(200).json({ message: "OK", users });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(200).json({ message: "ERROR", cause: getErrorMessage(error) });
   }
 };
 
@@ -55,7 +59,7 @@ export const userSignup = async (req: Request, res: Response, next: NextFunction
     return res.status(201).json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(200).json({ message: "ERROR", cause: getErrorMessage(error) });
   }
 };
 
@@ -95,7 +99,7 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
     return res.status(200).json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(200).json({ message: "ERROR", cause: getErrorMessage(error) });
   }
 };
 
@@ -110,7 +114,7 @@ export const verifyUser = async (req: Request, res: Response, next: NextFunction
     return res.status(200).json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(200).json({ message: "ERROR", cause: getErrorMessage(error) });
   }
 };
 
@@ -133,6 +137,6 @@ export const userLogout = async (req: Request, res: Response, next: NextFunction
     return res.status(200).json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(200).json({ message: "ERROR", cause: getErrorMessage(error) });
   }
 };

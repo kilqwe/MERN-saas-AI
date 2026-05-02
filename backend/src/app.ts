@@ -4,19 +4,19 @@ import cookieParser from "cookie-parser";
 import appRouter from "./routes/index.js";
 const app = express();
 
-// ✅ Allowed origins (add your Vercel frontend here)
+// Allowed origins (add your Vercel frontend here)
 const allowedOrigins = [
   "http://localhost:3000",                // local dev
   "https://mern-saas-ai-umber.vercel.app"      // your Vercel frontend domain
 ];
 
-// ✅ CORS middleware
+// CORS middleware
 app.use(cors({
   origin: allowedOrigins,
   credentials: true,  // <-- important for cookies
 }));
 
-// ✅ Middlewares
+// Middlewares
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET)); 
 
