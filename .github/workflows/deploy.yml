@@ -1,0 +1,57 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: test
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
+      MONGODB_URI: mongodb://localhost:27017/test
+      REDIS_URL: redis://localhost:6379
+      QDRANT_URL: http://localhost:6333
+      QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm install --legacy-peer-deps
+
+      - name: Run tests
+        run: |
+          cd backend
+          npm test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Deploy to Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          curl -X POST \
+            "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json"
