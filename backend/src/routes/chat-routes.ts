@@ -9,9 +9,9 @@ const chatRoutes = Router();
  
 chatRoutes.post(
     "/new", 
+    verifyToken,
     rateLimiter(10,60),
-    validate(chatCompletionValidator),
-    verifyToken, 
+    validate(chatCompletionValidator), 
     generateChatCompletion);
 chatRoutes.get(
     "/all-chats",
