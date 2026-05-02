@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "target": "ES2022",
+    "lib": ["ES2022"],
     "sourceMap": true,
+    "rootDir": "src",
     "outDir": "dist",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "types": ["jest","node"]
   },
   "include": ["src/**/*.ts", "src/index.ts"]
 }

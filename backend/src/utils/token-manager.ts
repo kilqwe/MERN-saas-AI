@@ -2,7 +2,7 @@ import { NextFunction, Request, response, Response } from "express";
 import jwt, { Secret, SignOptions } from "jsonwebtoken";
 import { COOKIE_NAME } from "./constants.js";
 import { signedCookies } from "cookie-parser";
-import { error } from "console";
+import { getErrorMessage } from "./error-handler.js";
 export const createToken = (
   id: string,
   email: string,
@@ -43,7 +43,7 @@ export const verifyToken = async (
     return next();
   } catch (err) {
     // 4. If verification fails (expired, invalid), send an error
-    console.error("TOKEN VERIFICATION FAILED:", err.message);
+    console.error("TOKEN VERIFICATION FAILED:", getErrorMessage(err));
     return res.status(401).json({ message: "Token expired or invalid" });
   }
 };
