@@ -22,4 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-./meta.env
+.meta.env
+.env.production
+.env.development
+frontend\.meta.env

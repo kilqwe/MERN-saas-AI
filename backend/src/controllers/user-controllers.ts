@@ -49,8 +49,8 @@ export const userSignup = async (req: Request, res: Response, next: NextFunction
       httpOnly: true,
       signed: true,
       path: "/",
-      secure: true,
-      sameSite: "none",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       expires,
     });
     console.log("Cookie set:", res.getHeaders()["set-cookie"]);
