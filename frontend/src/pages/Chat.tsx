@@ -14,11 +14,12 @@ import { useAuth, type User } from '../context/AuthContext'; // Assuming you exp
 import { IoMdSend } from 'react-icons/io';
 import { CgStopwatch } from 'react-icons/cg';
 import { HamburgerIcon, DeleteIcon } from '@chakra-ui/icons';
-import { deleteUserChats, getUserChats, sendChatRequest } from '../helpers/api-communicator';
+import { deleteUserChats, getUserChats, sendChatRequest, sendChatRequestStream } from '../helpers/api-communicator';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ChatItem from '../components/chat/ChatItem';
 import TextareaAutosize from 'react-textarea-autosize';
+
 
 type Message = {
   role: 'user' | 'assistant';
@@ -36,38 +37,62 @@ export const Chat = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  const handleSubmit = async () => {
-    const content = inputValue.trim();
-    if (!content || isGenerating) return;
+const handleSubmit = async () => {
+  const content = inputValue.trim();
+  if (!content || isGenerating) return;
 
-    abortControllerRef.current = new AbortController();
-    setInputValue('');
-    const newMessage: Message = { role: 'user', content };
-    setChatMessages((prev) => [...prev, newMessage]);
+  setInputValue('');
+  const newMessage: Message = { role: 'user', content };
+  setChatMessages((prev) => [...prev, newMessage, { role: 'assistant', content: '' }]);
+  setIsGenerating(true);
 
-    try {
-      setIsGenerating(true);
-      const chatData = await sendChatRequest(content);
-      setChatMessages([...chatData.chats]);
-    } catch (err: any) {
-      if (err.name === 'AbortError') {
-        toast.success('Chat generation stopped.');
-      } else {
-        console.error(err);
+  abortControllerRef.current = new AbortController();
+
+  try {
+    await sendChatRequestStream(
+      content,
+      (token: string) => {
+        setChatMessages((prev) => {
+          const updated = [...prev];
+          const last = updated[updated.length - 1];
+          if (last.role === 'assistant') {
+            updated[updated.length - 1] = {
+              ...last,
+              content: last.content + token,
+            };
+          }
+          return updated;
+        });
+      },
+      (crisisLevel: string) => {
+        setIsGenerating(false);
+        if (crisisLevel === 'high') {
+          toast('Please reach out to a crisis helpline if you need immediate support.', {
+            icon: '🆘',
+            duration: 6000,
+          });
+        }
+      },
+      (error: string) => {
         toast.error('Failed to send message');
-      }
-    } finally {
-      setIsGenerating(false);
-      abortControllerRef.current = null;
+        setIsGenerating(false);
+      },
+      abortControllerRef.current.signal
+    );
+  } catch (err: any) {
+    if (err.name !== 'AbortError') {
+      toast.error('Failed to send message');
     }
-  };
+    setIsGenerating(false);
+  }
+};
 
   const handleStopGeneration = () => {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-      abortControllerRef.current = null;
-    }
-  };
+  if (abortControllerRef.current) {
+    abortControllerRef.current.abort();
+    setIsGenerating(false);
+  }
+};
 
   const handleDeleteChats = async () => {
     try {
@@ -233,7 +258,7 @@ const MessageList = ({ messages, isLoading, isGenerating }: { messages: Message[
           <ChatItem key={index} role={chat.role} content={chat.content} />
         ))
       )}
-      {isGenerating && <TypingIndicator />}
+      {isGenerating && messages[messages.length - 1]?.content === '' && <TypingIndicator />}
       <Box ref={chatEndRef} />
     </VStack>
   );

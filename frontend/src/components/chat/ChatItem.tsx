@@ -52,7 +52,7 @@ const ChatItem = ({
       />
 
       <Box
-        // ✅ Changed user chat color to a more subtle, semi-transparent blue-gray
+        //  Changed user chat color to a more subtle, semi-transparent blue-gray
         bg={isUser ? "rgba(55, 65, 81, 0.8)" : "rgba(30, 25, 60, 0.7)"}
         color="white"
         borderRadius="xl"

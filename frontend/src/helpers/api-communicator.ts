@@ -47,7 +47,59 @@ export const logoutUser = async () => {
 };
 
 // ------------------- CHATS -------------------
+export const sendChatRequestStream = async (
+  message: string,
+  onToken: (token: string) => void,
+  onDone: (crisisLevel: string) => void,
+  onError: (error: string) => void,
+  signal?: AbortSignal
+) => {
+  const baseURL = import.meta.env.VITE_API_URL;
 
+  const response = await fetch(`${baseURL}/chat/stream`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ message }),
+    signal,
+  });
+
+  if (!response.ok) {
+    onError("Failed to connect to stream");
+    return;
+  }
+
+  const reader = response.body?.getReader();
+  const decoder = new TextDecoder();
+
+  if (!reader) {
+    onError("Stream not available");
+    return;
+  }
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      const lines = chunk.split("\n").filter(line => line.startsWith("data: "));
+
+      for (const line of lines) {
+        try {
+          const data = JSON.parse(line.replace("data: ", ""));
+          if (data.type === "token") onToken(data.content);
+          if (data.type === "done") onDone(data.crisisLevel);
+          if (data.type === "error") onError(data.message);
+        } catch {
+          // skip malformed chunks
+        }
+      }
+    }
+  } catch (err: any) {
+    if (err.name !== "AbortError") onError(err.message);
+  }
+};
 export const sendChatRequest = async (message: string) => {
   try {
     const res = await axios.post("/chat/new", { message });

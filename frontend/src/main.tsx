@@ -22,7 +22,6 @@ const theme = extendTheme({
   styles: {
     global: {
       'body': {
-        // ✅ FIX 1: Corrected the URL syntax (removed the extra quote)
         backgroundImage: 'url("/bg2.jpg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -43,7 +42,7 @@ const toastOptions = {
     color: '#fff',
     padding: '12px 18px',
   },
-  // Optional: You can also style the icons for different toast types
+
   success: {
     iconTheme: {
       primary: '#34D399', // Green
@@ -61,7 +60,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
       <BrowserRouter>
-        {/* ✅ FIX 2: Pass the custom theme to the provider */}
         <ChakraProvider theme={theme}>
           <Toaster position='bottom-right' toastOptions={toastOptions} />
           <App />

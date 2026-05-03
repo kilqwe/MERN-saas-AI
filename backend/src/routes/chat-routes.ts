@@ -2,7 +2,7 @@ import { Router } from "express";
 import userRoutes from "./user-routes.js";
 import { verifyToken } from "../utils/token-manager.js";
 import { chatCompletionValidator, validate } from "../utils/validators.js";
-import { deleteChats, generateChatCompletion, sendChatsToUser } from "../controllers/chat-controllers.js";
+import { deleteChats, generateChatCompletion, sendChatsToUser, generateChatCompletionStream } from "../controllers/chat-controllers.js";
 import { rateLimiter } from "../utils/rate-limiter.js";
 //Protected API
 const chatRoutes = Router();
@@ -18,7 +18,13 @@ chatRoutes.get(
     verifyToken, 
     sendChatsToUser
 );
-
+chatRoutes.post(
+    "/stream",
+    verifyToken,
+    rateLimiter(10,60),
+    validate(chatCompletionValidator),
+    generateChatCompletionStream
+);
 chatRoutes.delete(
     "/delete",
     verifyToken, 
