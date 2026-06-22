@@ -15,7 +15,7 @@ const spin = keyframes`
   to { transform: rotate(360deg); }
 `;
 
-// ✅ Animation for a pulsing glow effect
+//  Animation for a pulsing glow effect
 const glow = keyframes`
   0% { box-shadow: 0 0 5px #64f3d5; }
   50% { box-shadow: 0 0 20px #88f7e2; }
@@ -25,7 +25,7 @@ const glow = keyframes`
 const Logo = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // ✅ Combine both animations
+  //  Combine both animations
   const spinAnimation = `${spin} infinite 10s linear`;
   const glowAnimation = `${glow} infinite 4s ease-in-out`;
 

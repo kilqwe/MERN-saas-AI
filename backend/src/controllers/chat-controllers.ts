@@ -46,7 +46,7 @@ Always remind users you are an AI and encourage professional help when needed.`;
     if (crisisLevel === "high") {
       systemPrompt += `\n\nIMPORTANT: This user may be in crisis.
 Respond with immediate empathy and provide crisis resources:
-- National Suicide Prevention Lifeline: 988 (US)
+- National Suicide Prevention Lifeline: +91 9152987821
 - Crisis Text Line: Text HOME to 741741
 Encourage them to reach out to emergency services immediately.`;
     } else if (crisisLevel === "medium") {

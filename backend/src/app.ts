@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import appRouter from "./routes/index.js";
 const app = express();
 
-// Allowed origins (add your Vercel frontend here)
+// Allowed origins 
 const allowedOrigins = [
   "http://localhost:3000",                // local dev
   "https://mern-saas-ai-umber.vercel.app"      // your Vercel frontend domain

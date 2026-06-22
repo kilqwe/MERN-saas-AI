@@ -1,4 +1,4 @@
-// openai-config.ts (now using Groq under the hood)
+// (now using Groq under the hood)
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
 dotenv.config();

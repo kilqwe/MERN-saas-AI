@@ -27,7 +27,7 @@ export const verifyToken = async (
   res: Response,
   next: NextFunction
 ) => {
-  // 1. Get the token from signed cookies
+  // Get the token from signed cookies
   const token = req.signedCookies[`${COOKIE_NAME}`];
 
   if (!token || token.trim() === "") {
@@ -35,14 +35,14 @@ export const verifyToken = async (
     return res.status(401).json({ message: "Token not received" });
   }
 
-  // 2. Verify the token in a try...catch block
+  // Verify the token in a try-catch block
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-    // 3. If verification is successful, store user data and proceed
+    // verification is successful, store user data and proceed
     res.locals.jwtData = decoded;
     return next();
   } catch (err) {
-    // 4. If verification fails (expired, invalid), send an error
+    // verification fails (expired, invalid), send an error
     console.error("TOKEN VERIFICATION FAILED:", getErrorMessage(err));
     return res.status(401).json({ message: "Token expired or invalid" });
   }

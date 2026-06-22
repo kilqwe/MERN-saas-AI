@@ -17,7 +17,7 @@ const CustomizedInput = (props: Props) => {
         borderRadius="lg"
         fontSize="md"
         color="white"
-        // ✅ Switched to a darker background to match the duller theme
+        //  Switched to a darker background to match the duller theme
         bg="rgba(0, 0, 0, 0.14)"
         border="1px solid"
         borderColor="rgba(255, 255, 255, 0.15)"

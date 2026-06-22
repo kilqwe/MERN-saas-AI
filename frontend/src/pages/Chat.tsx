@@ -154,9 +154,7 @@ const handleSubmit = async () => {
   );
 };
 
-// =================================================================
-// --- SUB-COMPONENTS (All in the same file as requested) ---
-// =================================================================
+
 
 type SidebarProps = {
   isOpen: boolean;
